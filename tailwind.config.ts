@@ -12,10 +12,15 @@ export default {
     extend: {
       
       colors: {
+        border: "hsl(var(--border))",
         background: "var(--background)",
         foreground: "var(--foreground)",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        }
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 } satisfies Config;

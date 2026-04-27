@@ -34,12 +34,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
       <body
-        className={cn(poppins.variable,'antialiased flex flex-col min-h-screen px-2')}
+        className={cn(poppins.variable,'antialiased flex flex-col min-h-screen ')}
       >
         <ThemeProvider attribute='class' defaultTheme="system" enableSystem disableTransitionOnChange>
 
         <Navbar></Navbar>
-        <main className={cn('flex-grow ')}>
+        <main className={cn('flex-grow w-full ')}>
 
         {children}
         </main>
