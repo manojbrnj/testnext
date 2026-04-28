@@ -1,6 +1,11 @@
+import LoginForm from "@/components/auth/LoginForm"
+import Container from "@/components/layout/Container"
+
 function Login() {
   return (
-    <div>Login</div>
+    <Container>
+      <LoginForm></LoginForm>
+    </Container>
   )
 }
 
