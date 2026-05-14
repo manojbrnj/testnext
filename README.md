@@ -34,3 +34,22 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+## database string
+postgresql://neondb_owner:npg_E6Uz2HqvJQjk@ep-rapid-glade-a4m7xq4t.us-east-1.aws.neon.tech/neondb?sslmode=require
+
+## connnection params
+Host
+ep-rapid-glade-a4m7xq4t.us-east-1.aws.neon.tech
+Database
+neondb
+Role
+neondb_owner
+Password
+************
+Pooler host
+ep-rapid-glade-a4m7xq4t-pooler.us-east-1.aws.neon.tech
+
+## snippet
+npx neonctl@latest init
