@@ -9,10 +9,10 @@ import { FieldErrors,FieldValues,Path,UseFormRegister } from 'react-hook-form'
 
 interface FormFieldProps<T extends FieldValues>{
   id:string;
-  type:string;
+  type?:string;
   placeholder:string;
   label?:string;
-  inputClassName:string;
+  inputClassName?:string;
   disabled:boolean;
   register:UseFormRegister<T>;
   errors:FieldErrors;

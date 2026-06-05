@@ -1,11 +1,8 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return (
-  <div>Hello world
+ redirect('/blog/feed/1');
 
-    <Button className="bg-primary" >hello</Button>
-  </div>
-  );
 }

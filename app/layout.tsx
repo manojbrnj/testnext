@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import { Poppins, Geist } from "next/font/google";
+// @ts-ignore - allow side-effect CSS import without type declarations
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/layout/Navbar";
+import { EdgeStoreProvider } from '../lib/edgestore';
 import { ThemeProvider } from "next-themes";
+import { auth } from "@/auth";
+import { SessionProvider } from "next-auth/react";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -26,16 +30,21 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
   return (
-    <html lang="en" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
+    <EdgeStoreProvider>
+
+    <SessionProvider session={session}>
+
+    <html lang="en" suppressHydrationWarning className={cn("font-sans", poppins.variable)}>
       <body
         className={cn(poppins.variable,'antialiased flex flex-col min-h-screen ')}
-      >
+        >
         <ThemeProvider attribute='class' defaultTheme="system" enableSystem disableTransitionOnChange>
 
         <Navbar></Navbar>
@@ -49,5 +58,7 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
+        </SessionProvider>
+    </EdgeStoreProvider>
   );
 }

@@ -1,21 +1,28 @@
+'use client'
 import React from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
-import { Shield, User, UserRound } from 'lucide-react'
+import { Pencil, Shield, User, UserRound } from 'lucide-react'
 import { FaRegBookmark } from 'react-icons/fa'
+import {signOut, useSession} from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 function UserButton() {
+  const session = useSession();
+  const imageurl = session.data?.user.image;
+  const router = useRouter();
+  //console.log('avatar url:', imageurl, 'session:', session.data)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
-          <AvatarImage src='#'>
-          </AvatarImage>
-            <AvatarFallback className='border-2 border-slate-500 dark:border-slate-50' >
-              <UserRound>
-              
-              </UserRound>
+          {imageurl ? (
+            <AvatarImage src={imageurl} alt="User avatar" />
+          ) : (
+            <AvatarFallback className='border-2 border-slate-500 dark:border-slate-50'>
+              <UserRound />
             </AvatarFallback>
+          )}
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
@@ -26,7 +33,14 @@ function UserButton() {
         </DropdownMenuItem>
         <DropdownMenuSeparator/>
         <DropdownMenuItem>
-          <button className='flex items-center gap-2'>
+          <button onClick={()=> router.push('/blog/create')
+          } className='flex items-center gap-2'>
+            <Pencil size={18}></Pencil> Create Post
+          </button>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator/>
+        <DropdownMenuItem>
+          <button onClick={()=> router.push('/blog/bookmarks/1')} className='flex items-center gap-2'>
             <FaRegBookmark size={18}></FaRegBookmark> Bookmark
           </button>
         </DropdownMenuItem>
@@ -38,7 +52,7 @@ function UserButton() {
         </DropdownMenuItem>
         <DropdownMenuSeparator/>
         <DropdownMenuItem>
-          <button className='flex items-center gap-2'>
+          <button className='flex items-center gap-2' onClick={()=>signOut()}>
             <User size={18}></User> Sign out
           </button>
         </DropdownMenuItem>
