@@ -5,6 +5,8 @@ import { RegisterSchema, RegisterSchemaType } from "@/schemas/RegisterSchema"
 import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
 import { getUserByEmail } from "@/lib/user";
+import { generateEmailVerificationToken, sendEmailVerificationToken } from "@/lib/emailVerification";
+import { error } from "console";
 
 
 export const signUp = async(values:RegisterSchemaType)=>{
@@ -27,7 +29,12 @@ await db.user.create({
     password:hashedPassword
   }
 });
+const emailVerificationToken = await generateEmailVerificationToken(email);
+const {error} =await sendEmailVerificationToken(emailVerificationToken.email,emailVerificationToken.token);
+if(error){
+  return {error : "Something went wrong! while sending verification email ! try to login again"}
+}
 return {
-  success: "User created successfully!"
+  success: `email verification link send to ${email}`
 }
 }

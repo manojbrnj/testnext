@@ -4,22 +4,25 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url = env("DATABASE_URL") //ye issue nhi hai 
- 
+  url= env("DATABASE_URL") //ye issue nhi hai extension ka issue hai 
 }
 
 model User {
-  id            String          @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String?
-  email         String          @unique
-  password     String? 
+  email         String    @unique
+  password      String?
   emailVerified DateTime?
   image         String?
   accounts      Account[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  role          UserRole  @default(USER)
+  blogs         Blog[]
+  claps         Clap[]
+  bookmarks     Bookmark[]
 }
- 
+
 model Account {
   userId            String
   type              String
@@ -32,11 +35,70 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@id([provider, providerAccountId])
+}
+
+model EmailVerificationToken {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model PasswordResetToken {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+model Blog {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  content     String
+  coverImage  String?
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  tags        String[]
+  claps       Clap[]
+  bookmarks   Bookmark[]
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Clap {
+  id     String @id @default(cuid())
+  userId String
+  blogId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  blog Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, blogId])
+}
+model Bookmark {
+  id String @id @default(cuid())
+  userId String
+  blogId String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  blog Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, blogId])
 }
