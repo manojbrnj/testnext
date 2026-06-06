@@ -34,7 +34,7 @@ const handleClap =async()=>{
 }
 const handleBookmark =async()=>{
   if(!userId){
-    alert("Please login to clap");
+    alert("Please login to Bookmarks");
     return;
   }
  // setClapCount((prevCount)=> userHasBookmarked ? prevCount - 1 : prevCount + 1);
