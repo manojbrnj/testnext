@@ -70,7 +70,7 @@ const isAdmin = session?.user?.role === 'ADMIN';
               fill
               alt={blog.title}
               className='object-cover rounded-md'
-            />{' '}
+            />
           </Link>
         )}
       </div>

@@ -32,6 +32,7 @@ export const getBlogsByUserId= async({page=1,limit=5,userId}:{page:number,limit:
         _count: {
           select: {
             claps: true,
+            comments:true
           }
         },
         claps:{

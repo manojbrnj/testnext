@@ -7,6 +7,8 @@ import moment from 'moment';
 import { getBlogsByUserId } from '@/actions/blogs/get-blogsBytUserId';
 import Alert from '../common/Alert';
 import ListBlogs from '../blog/ListBlogs';
+import EditProfileButton from './EditProfileButton';
+import Tag from '../common/Tag';
 
 async function UserProfile({user, page}: {user: User; page: string}) {
   const currentPage  = parseInt(page,10)||1;
@@ -32,7 +34,7 @@ async function UserProfile({user, page}: {user: User; page: string}) {
         </div>
 
         <div>
-          <p>Edit</p>
+          <EditProfileButton  user={user}></EditProfileButton>
         </div>
       </div>
       <div className='flex gap-4 flex-col items-center justify-center p-6 border-y mt-6 flex-wrap'>
@@ -50,7 +52,9 @@ async function UserProfile({user, page}: {user: User; page: string}) {
         </div>
       </div>
         <div>
-          Tags
+          {!!user.tags.length && <div className='flex items-center justify-center p-6 border-b mb-6 gap-4 flex-wrap'>
+            {user.tags.map((t) => <Tag key={t}>{t}</Tag>)}
+            </div>}
         </div>
         <div>
           {error && <Alert error message='error fetching user blog'/>}

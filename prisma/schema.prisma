@@ -22,6 +22,8 @@ model User {
   role          UserRole  @default(USER)
   blogs         Blog[]
   claps         Clap[]
+  followers Follow[] @relation("UserAsFollowed") // those who follow this user
+  followings Follow[] @relation("UserAsFollower") // those followed by this user
   bookmarks     Bookmark[]
   comments      Comment[]
   commentClaps CommentClap[]
@@ -136,3 +138,14 @@ model CommentClap {
   @@unique([userId, commentId])
 }
 
+model Follow {
+  id String @id @default(cuid())
+  followerId String //user who follows
+  followingId String //user being followed
+  createAt DateTime @default(now())
+
+  follower User @relation("UserAsFollower", fields: [followerId], references: [id], onDelete: Cascade) // the one following
+  following User @relation("UserAsFollowed", fields: [followingId], references: [id], onDelete: Cascade) // the one followed
+
+  @@unique([followerId, followingId])
+}

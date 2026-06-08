@@ -6,9 +6,12 @@ export type BlogWithUser = Blog & {
   user: Pick<User, 'id' | 'name' | 'image'>;
   _count: {
     claps: number;
+    comments: number;    
   };
   claps: { id: string }[];
   bookmarks: { id: string }[];
+  
+ 
 };
 
 interface ListBlogsProps {

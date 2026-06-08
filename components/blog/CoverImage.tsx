@@ -23,7 +23,7 @@ try {
   }
   return (
     <div className='relative w-full h-[35vh] group'>
-      <Image src={url} alt="cover image" fill className="object-cover" />
+      <Image src={url} alt="cover image" fill className="object-cover"  />
       {isEditor && <div className="absolute top-8 right-5 opacity-0 group-hover:opacity-100 flex items-center gap-x-2 ">
         <AddCover setUploadedCover={setUploadedCover} replaceUrl={url}/>
         <button className="flex items-center gap-2 ml-4 " type="button" onClick={()=>{

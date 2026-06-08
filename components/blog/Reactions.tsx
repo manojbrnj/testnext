@@ -17,7 +17,7 @@ function Reactions({blog}:{blog:BlogWithUser}) {
   const router = useRouter();
   
   const userId = session.data?.user.id;
-  //console.log("BLOG CLSP",blog._count.claps)
+//console.log("BLOG CLSP",blog._count)
 
 const [ clapCount,setClapCount] = useState<number>(blog._count.claps);
 const [ userHasClapped,setUserHasClapped] = useState<boolean>(!!blog.claps.length);
@@ -53,7 +53,7 @@ const handleBookmark =async()=>{
         </span>
         <span className="mr-4 flex items-center gap-1 cursor-pointer">
           <FaRegComment size={18}/>
-          {3}
+          {blog._count.comments}
         </span>
       </div>
       <div>

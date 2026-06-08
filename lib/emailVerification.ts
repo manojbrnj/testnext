@@ -46,13 +46,13 @@ export const generateEmailVerificationToken=async (email:string)=>{
 export const sendEmailVerificationToken=async(email:string,token:string)=>{
 const resend = new Resend();
 const emailVerificationLink = `${process.env.BASE_URL}/email-verification?token=${token}`
-
+ console.log(emailVerificationLink)
 const res =await resend.emails.send({
-  from:"onboarding@resend.dev",
+  from:"voiceofamuse.com<manojbrnj111@voiceofamuse.com>",
   to:email,
-  subject:"Verify your email",
-  html:`<p>Click <a href="${emailVerificationLink}">here</a> to verify your email.</p>`
+  subject:"Welcome to Voice of Amuse! Please verify your email 🎉",
+  html:`<p>Click 👉 <a href="${emailVerificationLink}">here</a> to verify your email 🎉🎉🎉🎉🎉.</p>`
 })
-
+console.log(res.error)
 return {error:res.error}
 }

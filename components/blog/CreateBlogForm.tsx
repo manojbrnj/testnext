@@ -80,8 +80,38 @@ function CreateBlogForm({blog}: {blog?: Blog}) {
     }
   }, [blog?.coverImage]);
 
-  const onChange = (content: string) => {
-    setContent(content);
+  const onChange = (newContent: string) => {
+    const oldBlocks = JSON.parse(content || '[]');
+    const newBlocks = JSON.parse(newContent || '[]');
+
+    const getImages = (blocks: any[]) => {
+      const urls: string[] = [];
+      blocks.forEach((block) => {
+        if (block.type === 'image' || block.type === 'video' || block.type === 'audio'|| block.type === 'file') {
+          if (block.props?.url) urls.push(block.props.url);
+        }
+        if (block.content && Array.isArray(block.content)) {
+          urls.push(...getImages(block.content));
+        }
+      });
+      return urls;
+    };
+
+    const oldUrls = getImages(oldBlocks);
+    const newUrls = getImages(newBlocks);
+
+    const deletedUrls = oldUrls.filter((url) => !newUrls.includes(url));
+
+    deletedUrls.forEach(async (url) => {
+      try {
+        await edgestore.publicFiles.delete({url});
+      } catch (error) {
+        console.error('Failed to delete file from edgestore:', error);
+      }
+    });
+
+    setContent(newContent);
+
   };
   const onPublish: SubmitHandler<BlogSchemaType> = async (data) => {
     //console.log(data);
