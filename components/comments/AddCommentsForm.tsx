@@ -50,7 +50,9 @@ function AddCommentsForm({
        }
        if(res.success) {
         toast.success('Comment added successfully');
-        reset();}
+        reset();
+        
+      }
       });
     });
 

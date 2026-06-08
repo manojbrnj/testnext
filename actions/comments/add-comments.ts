@@ -1,7 +1,6 @@
 'use server'
 import { getUserById } from "@/lib/user";
 import { CommentsSchema, CommentsSchemaType } from "@/schemas/CommentsSchema";
-import { getBlogById } from "../blogs/get-blogById";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
@@ -17,8 +16,15 @@ export const addComment = async ({ values, userId, blogId, parentId, repliedToUs
   const user = await getUserById(userId);
   if (!user) return { error: "user not found" }
 
-  const blog = await getBlogById({ blogId })
-  if (!blog) return { error: "blog not found" }
+const blog = await db.blog.findUnique({
+    where:{
+      id:blogId
+    }
+  })
+
+  if(!blog){
+    return {error:"blog not found"}
+   }
 
   if (parentId) {
     const parentComment = await db.comment.findUnique({

@@ -14,6 +14,8 @@ model User {
   password      String?
   emailVerified DateTime?
   image         String?
+  bio           String?
+  tags          String[]
   accounts      Account[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -22,6 +24,7 @@ model User {
   claps         Clap[]
   bookmarks     Bookmark[]
   comments      Comment[]
+  commentClaps CommentClap[]
    repliedToComments Comment[] @relation("ReplyToUser")
    
 }
@@ -120,5 +123,16 @@ parentId String?
   parent Comment? @relation("OneLevelThread", fields: [parentId], references: [id], onDelete: Cascade)
   replies Comment[] @relation("OneLevelThread")
   repliedToUser User? @relation("ReplyToUser", fields: [repliedToUserId], references: [id])
-
+claps CommentClap[]
 }
+
+model CommentClap {
+  id     String @id @default(cuid())
+  userId String
+  commentId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, commentId])
+}
+
