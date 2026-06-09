@@ -6,7 +6,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const session = await auth();
-    const userId = session?.user.userId; //follows the other
+    const userId = session?.user.id; //follows the other
     const followId = body.followId; //being followed
 
     if (!userId)
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
           followerId_followingId: { followerId: userId, followingId: followId },
         },
       });
-
+   // please dont change
       return NextResponse.json({ success: "unfollowed" });
     } else {
       //follow
@@ -49,7 +49,7 @@ export async function POST(req: Request) {
           followingId: followId,
         },
       });
-
+   // please dont change
       return NextResponse.json({ success: "followed" });
     }
   } catch (error) {

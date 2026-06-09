@@ -9,9 +9,35 @@ import Alert from '../common/Alert';
 import ListBlogs from '../blog/ListBlogs';
 import EditProfileButton from './EditProfileButton';
 import Tag from '../common/Tag';
+import FollowButton from './FollowButton';
+import { auth } from '@/auth';
+export type UserWithFollowers = User &{
+  followers:{
+    follower:Pick<User,'id'|'name'|'image'> &{
+      followers:{
+        id:string
+      }[]
+    }
+  
+  }[];
+  followings:{
+    following:Pick<User,'id'|'name'|'image'> &{
+      followers:{
+        id:string
+      }[]
+    }
+  
+  }[];
+  _count:{
+    followers:number;
+    followings:number;
+  }
 
-async function UserProfile({user, page}: {user: User; page: string}) {
+}
+async function UserProfile({user, page,isFollowing}: {user: UserWithFollowers; page: string,isFollowing:boolean}) {
   const currentPage  = parseInt(page,10)||1;
+  const session = await auth();
+  const userId = session?.user.id;
   const {success,error} = await getBlogsByUserId({page:currentPage,limit:5, userId: user?.id})
   return (
     <div className='max-w-[1200px] m-auto p-4'>
@@ -34,7 +60,9 @@ async function UserProfile({user, page}: {user: User; page: string}) {
         </div>
 
         <div>
-          <EditProfileButton  user={user}></EditProfileButton>
+          {userId === user?.id && <EditProfileButton  user={user}></EditProfileButton>}
+          {userId !== user?.id && <FollowButton user={user} isFollowing={isFollowing}   />}
+         
         </div>
       </div>
       <div className='flex gap-4 flex-col items-center justify-center p-6 border-y mt-6 flex-wrap'>
