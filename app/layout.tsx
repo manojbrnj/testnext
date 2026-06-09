@@ -8,7 +8,7 @@ import { EdgeStoreProvider } from '../lib/edgestore';
 import { ThemeProvider } from "next-themes";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
-
+import {Toaster} from 'react-hot-toast'
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const poppins = Poppins({
@@ -45,15 +45,20 @@ export default async function RootLayout({
       <body
         className={cn(poppins.variable,'antialiased flex flex-col min-h-screen ')}
         >
+          <Toaster position='top-center' toastOptions={{
+            style:{
+              background:'rgb(51 65 85 )',
+              color:'#fff'
+            }
+          }} reverseOrder={false}/>
         <ThemeProvider attribute='class' defaultTheme="system" enableSystem disableTransitionOnChange>
-
         <Navbar></Navbar>
         <main className={cn('flex-grow w-full ')}>
 
         {children}
         </main>
         <footer>
-          ....
+          <div className="py-6 text-center text-sm text-muted-foreground">© {new Date().getFullYear()} Voam</div>
         </footer>
         </ThemeProvider>
       </body>

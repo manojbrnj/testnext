@@ -1,35 +1,19 @@
 'use server'
 import { auth } from "@/auth";
 import {db } from "@/lib/db";
-export interface PaginationType{
-  page:number;
-  limit:number;
-  offset?:number;
-  searchObject:{
-    tag:string,
-    title?:string
-  }
-}
+ 
 
 
 
 
-export const getPublishedBlogs= async({page=1,limit=5,searchObject}:PaginationType)=>{
+export const getBlogsByUserId= async({page=1,limit=5,userId}:{page:number,limit:number,userId:string})=>{
   const offset =(Number(page)-1)*limit;
   //console.log("offset>>>>",offset);
-  const {tag,title} = searchObject;
-  const session = await auth();
-  const userId = session?.user.id;
+ 
   try {
     const blogs = await db.blog.findMany({
       where:{
-         title:{
-          contains:title,
-          mode:"insensitive",
-          
-        },
-        isPublished:true,
-        ...(tag?{tags:{has:tag}}:{}),
+        userId:userId,
        
       },
       skip:offset,
@@ -48,8 +32,7 @@ export const getPublishedBlogs= async({page=1,limit=5,searchObject}:PaginationTy
         _count: {
           select: {
             claps: true,
-            comments: true,
-            
+            comments:true
           }
         },
         claps:{
@@ -76,13 +59,7 @@ export const getPublishedBlogs= async({page=1,limit=5,searchObject}:PaginationTy
   
     const totalBlogCount = await db.blog.count({
       where:{
-        isPublished:true,
-         ...(tag?{tags:{has:tag}}:{}),
-        title:{
-          contains:title,
-          mode:"insensitive",
-          
-        },
+       userId:userId,
       }
     });
 
