@@ -11,7 +11,7 @@ import toast from 'react-hot-toast';
 
 
 
-function FollowButton({user,isFollowing:following,isList=false}:{user:User,isFollowing:boolean,isList?:boolean}) {
+function FollowButton({user,isFollowing:following,isList=false}:{user:User | Pick<User,'id'|'name'|'image'>,isFollowing:boolean,isList?:boolean}) {
   const [loading, setLoading] = useState<boolean>(false);
   const [isFollowing,setIsFollowing] = useState<boolean>(following);
   const router = useRouter();
@@ -31,7 +31,7 @@ function FollowButton({user,isFollowing:following,isList=false}:{user:User,isFol
        }
        router.refresh();
    } catch (error:any) {
-      toast.error("something went wrong in followButton")
+      toast.error(error.response.data.error)
     console.log(error)
    }finally{
     setLoading(false);

@@ -8,7 +8,7 @@ import {getUserById} from '@/lib/user';
 
 async function EditUser({params}: {params: Promise<{id: string}>}) {
   const {id} = await params;
-  console.log(id);
+ // console.log(id);
   const user = await getUserById(id);
   if (!user) {
     return <Alert error message='User not found' />;
@@ -29,7 +29,7 @@ async function EditUser({params}: {params: Promise<{id: string}>}) {
 
    const isCredentials = !isOAuth
 
-   console.log(isCredentials, isOAuth) 
+  // console.log(isCredentials, isOAuth) 
 
 
   return (<EditUserForm user={user} isCredentials={isCredentials}/>);

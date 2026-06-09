@@ -10,7 +10,7 @@ import ListComments from './ListComments';
 async function Comments({blog}:{blog:BlogWithUser}) {
   const session = await auth();
   const userId = session?.user.id;
-  console.log(userId);
+ // console.log(userId);
 const {success} = await getComments(blog.id,null,userId)
   return (
     <div>

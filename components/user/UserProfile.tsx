@@ -11,6 +11,8 @@ import EditProfileButton from './EditProfileButton';
 import Tag from '../common/Tag';
 import FollowButton from './FollowButton';
 import { auth } from '@/auth';
+import FollowersList from './FollowersList';
+import FollowingList from './FollowingList';
 export type UserWithFollowers = User &{
   followers:{
     follower:Pick<User,'id'|'name'|'image'> &{
@@ -53,8 +55,8 @@ async function UserProfile({user, page,isFollowing}: {user: UserWithFollowers; p
             <h1 className=' text-lg sm:text-3xl font-bold'>{user?.name}</h1>
             {user?.bio && <p>{user.bio}</p>}
             <div className='flex items-center gap-2'>
-              <span>Followers</span>
-              <span>Following</span>
+              <FollowersList  user={user} />
+             <FollowingList  user={user} />
             </div>
           </div>
         </div>

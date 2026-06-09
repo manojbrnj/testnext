@@ -22,7 +22,7 @@ function FollowingList({user}:{user:UserWithFollowers}) {
     </DialogHeader>
 <div>
   {user.followings.map((item)=>{
-  console.log(item)
+  //.log(item)
     return (<div key={item.following.id} className='flex gap-4 items-center justify-between'>
     <UserSummery user={item.following}/>
     <FollowButton user={item.following}  isFollowing={!!item.following.followers.length} isList={true}/>
