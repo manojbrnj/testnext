@@ -6,7 +6,6 @@ import UserSummery from '../blog/UserSummery';
 import FollowButton from './FollowButton';
 
 function FollowersList({user}:{user:UserWithFollowers}) {
-  const [open,setOpen] = useState<boolean>(false);
   return (
     <div>
       <Dialog>

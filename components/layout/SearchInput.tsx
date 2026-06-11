@@ -2,8 +2,8 @@
 import { Search } from 'lucide-react'
 import React, { ChangeEventHandler, useEffect, useState } from 'react'
 import { Input } from '../ui/input'
-import queryString from 'query-string';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import queryString, { StringifiableRecord } from 'query-string';
+import {  useRouter, useSearchParams } from 'next/navigation';
 import { useDebounceValue } from '@/hooks/useDebounceValue';
 
 
@@ -28,7 +28,7 @@ setValue(e.target.value);
             currentQuery = queryString.parse(params.toString());
         
           }
-          const updatedQuery:any ={
+          const updatedQuery:StringifiableRecord | undefined  ={
             ...currentQuery,
             title:debouncedValue
           

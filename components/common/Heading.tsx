@@ -3,9 +3,9 @@ interface HeadingProps{
   center?:boolean;
 lg?:boolean;
 md?:boolean;
-sm?:boolean;
+
 }
-function Heading({title,center,lg,md,sm}:HeadingProps) {
+function Heading({title,center,lg,md}:HeadingProps) {
   return <div className={`
   ${center ? 'text-center' : 'text-start'}
 

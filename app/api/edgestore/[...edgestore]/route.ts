@@ -1,5 +1,3 @@
-import { initEdgeStore } from '@edgestore/server';
-import { createEdgeStoreNextHandler } from '@edgestore/server/adapters/next/app';
 import { handler } from '@/lib/edgestore-server';
 
 

@@ -47,7 +47,7 @@ const AddCover = ({ setUploadedCover, replaceUrl }: AddCoverProps) => {
         return () => {
             isMounted = false
         }
-    }, [file])
+    }, [file])  
 
     return (<div>
         <input

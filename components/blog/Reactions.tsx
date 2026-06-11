@@ -1,5 +1,5 @@
 'use client'
-import { Blog } from "@prisma/client";
+
 import { useState } from "react";
 import { FaBookmark, FaRegBookmark, FaRegComment } from "react-icons/fa";
 import { FaHandsClapping } from "react-icons/fa6";

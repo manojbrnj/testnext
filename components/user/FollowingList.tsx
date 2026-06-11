@@ -1,12 +1,11 @@
 'use client'
 import React, { useState } from 'react'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { UserWithFollowers } from './UserProfile';
 import UserSummery from '../blog/UserSummery';
 import FollowButton from './FollowButton';
 
 function FollowingList({user}:{user:UserWithFollowers}) {
-  const [open,setOpen] = useState<boolean>(false);
   return (
     <div>
       <Dialog>

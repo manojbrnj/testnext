@@ -2,7 +2,7 @@
 import {User} from '@prisma/client';
 import React from 'react';
 import {Avatar, AvatarFallback, AvatarImage} from '../ui/avatar';
-import {Calendar, CalendarHeart, UserRound} from 'lucide-react';
+import {Calendar, UserRound} from 'lucide-react';
 import moment from 'moment';
 import { getBlogsByUserId } from '@/actions/blogs/get-blogsBytUserId';
 import Alert from '../common/Alert';

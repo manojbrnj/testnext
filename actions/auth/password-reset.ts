@@ -7,7 +7,7 @@ import { getUserByEmail } from '@/lib/user';
 
 import { PasswordResetSchema, PasswordResetSchemaType } from "@/schemas/PasswordResetSchema"
 import { db } from '@/lib/db';
-import { error } from "console";
+
 
 
 export const passwordReset = async (values: PasswordResetSchemaType, token?: string | null) => {
