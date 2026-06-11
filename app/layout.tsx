@@ -9,7 +9,7 @@ import { ThemeProvider } from "next-themes";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
 import {Toaster} from 'react-hot-toast'
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
 
 const poppins = Poppins({
   variable: "--font-poppins",

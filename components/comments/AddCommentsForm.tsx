@@ -22,7 +22,6 @@ function AddCommentsForm({
   parentId,
   replyToId,
   placeholder,
-  creatorId,
 }: IAddCommentProps) {
   const [isPending, startTransition] = useTransition();
 

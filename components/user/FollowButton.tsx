@@ -30,8 +30,8 @@ function FollowButton({user,isFollowing:following,isList=false}:{user:User | Pic
 
        }
        router.refresh();
-   } catch (error:any) {
-      toast.error(error.response.data.error)
+   } catch (error) {
+     // toast.error(error.response.data.error)
     console.log(error)
    }finally{
     setLoading(false);

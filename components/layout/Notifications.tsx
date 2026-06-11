@@ -1,5 +1,5 @@
 import React from 'react';
-import {DropdownMenu, DropdownMenuTrigger,DropdownMenuContent,DropdownMenuGroup,DropdownMenuItem,DropdownMenuSeparator} from '../ui/dropdown-menu';
+import {DropdownMenu, DropdownMenuTrigger,DropdownMenuContent} from '../ui/dropdown-menu';
 import { Bell } from 'lucide-react';
 
 function Notifications() {

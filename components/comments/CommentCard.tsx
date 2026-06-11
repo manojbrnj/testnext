@@ -6,7 +6,6 @@ import CommentReactions from './CommentReactions';
 import {CommentWithUser} from './ListComments';
 import AddCommentsForm from './AddCommentsForm';
 import { useSession } from 'next-auth/react';
-import { List } from 'lucide-react';
 import ListReplies from './ListReplies';
 function CommentCard({comment}:{comment:CommentWithUser}) {
   const session = useSession();

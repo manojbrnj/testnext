@@ -19,6 +19,7 @@ import {deleteBlog} from '@/actions/blogs/delete-blog';
 import {useEdgeStore} from '@/lib/edgestore';
 import { useRouter } from 'next/navigation';
 
+import type { Block } from "@blocknote/core";
 
 function CreateBlogForm({blog}: {blog?: Blog}) {
   const session = useSession();
@@ -84,18 +85,44 @@ function CreateBlogForm({blog}: {blog?: Blog}) {
     const oldBlocks = JSON.parse(content || '[]');
     const newBlocks = JSON.parse(newContent || '[]');
 
-    const getImages = (blocks: any[]) => {
-      const urls: string[] = [];
-      blocks.forEach((block) => {
-        if (block.type === 'image' || block.type === 'video' || block.type === 'audio'|| block.type === 'file') {
-          if (block.props?.url) urls.push(block.props.url);
-        }
-        if (block.content && Array.isArray(block.content)) {
-          urls.push(...getImages(block.content));
-        }
-      });
-      return urls;
-    };
+    // const getImages = (blocks: Block[]) => {
+    //   const urls: string[] = [];
+    //   blocks.forEach((block) => {
+    //     if (block.type === 'image' || block.type === 'video' || block.type === 'audio'|| block.type === 'file') {
+    //       if (block.props?.url) urls.push(block.props.url);
+    //     }
+    //     if (block.content && Array.isArray(block.content)) {
+    //       urls.push(...getImages(block.content));
+    //     }
+    //   });
+    //   return urls;
+    // };
+    
+
+const getImages = (blocks: Block[]) => {
+  const urls: string[] = [];
+
+  blocks.forEach((block) => {
+    if (
+      block.type === "image" ||
+      block.type === "video" ||
+      block.type === "audio" ||
+      block.type === "file"
+    ) {
+      const url = (block.props as { url?: string }).url;
+
+      if (url) {
+        urls.push(url);
+      }
+    }
+
+    if (block.children?.length) {
+      urls.push(...getImages(block.children));
+    }
+  });
+
+  return urls;
+};
 
     const oldUrls = getImages(oldBlocks);
     const newUrls = getImages(newBlocks);

@@ -1,6 +1,5 @@
 import { tags } from '@/lib/tags'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import queryString from 'query-string'
+import { usePathname, useSearchParams } from 'next/navigation'
 import Tag from '../common/Tag'
 import './Tags.css'
 function Tags() {
