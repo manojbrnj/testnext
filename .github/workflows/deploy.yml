@@ -17,6 +17,7 @@ jobs:
           username: root
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          debug: true  # Add this to get more detailed logs
           port: 22
           script: |
             su - manoj -c '
