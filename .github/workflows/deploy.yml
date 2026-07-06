@@ -13,13 +13,12 @@ jobs:
       - name: Deploy to Droplet
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ secrets.HOST }}
+          host: ${{ secrets.SSH_HOST }}
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           debug: true
-          port: 22
-          script_stop: true
+          port: 22         
           script: |
             su - manoj -c '
               cd /var/www/voiceofamuse.com &&
