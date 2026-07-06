@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - temp
+      - main
 
 jobs:
   deploy:
@@ -16,10 +16,11 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           port: ${{ secrets.PORT }}
           script: |
             cd /var/www/voiceofamuse.com
-            git pull origin temp
+            git pull origin main
             npm install
             npm run build
             pm2 restart all
