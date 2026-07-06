@@ -14,17 +14,14 @@ jobs:
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.SSH_HOST }}
-          username: root
+          username: manoj
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          port: 22
           debug: true
-          port: 22         
           script: |
-            su - manoj -c '
-              cd /var/www/voiceofamuse.com &&
-              git fetch origin &&
-              git reset --hard origin/temp &&
-              npm install &&
-              npm run build &&
-              pm2 restart all
-            '
+            cd /var/www/voiceofamuse.com
+            git fetch origin
+            git reset --hard origin/temp
+            npm install
+            npm run build
+            pm2 restart all
