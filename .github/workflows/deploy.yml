@@ -15,10 +15,11 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: root
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          debug: true  # Add this to get more detailed logs
+          debug: true
           port: 22
+          script_stop: true
           script: |
             su - manoj -c '
               cd /var/www/voiceofamuse.com &&
