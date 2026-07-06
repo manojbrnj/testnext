@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import { clapBlog } from "@/actions/blogs/clap-blog";
 import { useRouter } from "next/navigation";
 import { bookmarkBlog } from "@/actions/blogs/bookmark-blog";
+import ShareButton from "@/components/common/ShareButton";
 
 function Reactions({blog}:{blog:BlogWithUser}) {
 
@@ -56,11 +57,14 @@ const handleBookmark =async()=>{
           {blog._count.comments}
         </span>
       </div>
-      <div>
-        <span onClick={handleBookmark}>
+      <div className="flex items-center gap-2">
+        <span onClick={handleBookmark} className="mr-4 cursor-pointer">
           {userHasBookmarked ? <FaBookmark  size={18}/> : <FaRegBookmark  size={18}/>}
         </span>
-        {/* <FaRegBookmark size={18}/> */}
+        <span className="mr-4 cursor-pointer">
+
+        <ShareButton id={blog.id} title={blog.title} />
+        </span>
       </div>
     </div>
   )

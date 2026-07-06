@@ -7,8 +7,10 @@ import { EdgeStoreProvider } from '../lib/edgestore';
 import { ThemeProvider } from "next-themes";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
-import {Toaster} from 'react-hot-toast'
-
+import { Toaster } from 'react-hot-toast'
+import NextTopLoader from "nextjs-toploader";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -23,9 +25,9 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "Voam",
-  description: "Voam is a platform for sharing knowledge and ideas.", 
-  icons:{
-    icon:'/logo.svg'
+  description: "Voam is a platform for sharing knowledge and ideas.",
+  icons: {
+    icon: '/logo.svg'
   }
 };
 
@@ -38,31 +40,33 @@ export default async function RootLayout({
   return (
     <EdgeStoreProvider>
 
-    <SessionProvider session={session}>
+      <SessionProvider session={session}>
 
-    <html lang="en" suppressHydrationWarning className={cn("font-sans", poppins.variable)}>
-      <body
-        className={cn(poppins.variable,'antialiased flex flex-col min-h-screen ')}
-        >
-          <Toaster position='top-center' toastOptions={{
-            style:{
-              background:'rgb(51 65 85 )',
-              color:'#fff'
-            }
-          }} reverseOrder={false}/>
-        <ThemeProvider attribute='class' defaultTheme="system" enableSystem disableTransitionOnChange>
-        <Navbar></Navbar>
-        <main className={cn('flex-grow w-full ')}>
-
-        {children}
-        </main>
-        <footer>
-          <div className="py-6 text-center text-sm text-muted-foreground">© {new Date().getFullYear()} Voam</div>
-        </footer>
-        </ThemeProvider>
-      </body>
-    </html>
-        </SessionProvider>
+        <html lang="en" suppressHydrationWarning className={cn("font-sans", poppins.variable)}>
+          <body
+            className={cn(poppins.variable, 'antialiased flex flex-col min-h-screen ')}
+          >
+            <Toaster position='top-center' toastOptions={{
+              style: {
+                background: 'rgb(51 65 85 )',
+                color: '#fff'
+              }
+            }} reverseOrder={false} />
+            <ThemeProvider attribute='class' defaultTheme="system" enableSystem disableTransitionOnChange>
+              <Navbar></Navbar>
+              <main className={cn('flex-grow w-full ')}>
+                <NextTopLoader />
+                <Suspense fallback={<Loading />}>
+                  {children}
+                </Suspense>
+              </main>
+              <footer>
+                <div className="py-6 text-center text-sm text-muted-foreground">© {new Date().getFullYear()} Voam</div>
+              </footer>
+            </ThemeProvider>
+          </body>
+        </html>
+      </SessionProvider>
     </EdgeStoreProvider>
   );
 }
