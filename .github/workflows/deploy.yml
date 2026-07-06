@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - main
+      - temp
 
 jobs:
   deploy:
@@ -14,13 +14,16 @@ jobs:
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
+          username: root
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          port: ${{ secrets.PORT }}
+          port: 22
           script: |
-            cd /var/www/voiceofamuse.com
-            git pull origin main
-            npm install
-            npm run build
-            pm2 restart all
+            su - manoj -c '
+              cd /var/www/voiceofamuse.com &&
+              git fetch origin &&
+              git reset --hard origin/temp &&
+              npm install &&
+              npm run build &&
+              pm2 restart all
+            '
