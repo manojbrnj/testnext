@@ -1,6 +1,5 @@
-import { EmailVerificationToken } from './../../node_modules/.prisma/client/index.d';
 'use server'
-import { db } from "@/lib/db";
+
 import { getUserByEmail } from "@/lib/user";
 import { LoginSchema, loginSchemaType } from "@/schemas/LoginSchema";
 import { signIn } from "@/auth";

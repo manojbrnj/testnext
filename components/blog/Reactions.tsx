@@ -1,5 +1,5 @@
 'use client'
-import { Blog } from "@prisma/client";
+
 import { useState } from "react";
 import { FaBookmark, FaRegBookmark, FaRegComment } from "react-icons/fa";
 import { FaHandsClapping } from "react-icons/fa6";
@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import { clapBlog } from "@/actions/blogs/clap-blog";
 import { useRouter } from "next/navigation";
 import { bookmarkBlog } from "@/actions/blogs/bookmark-blog";
+import ShareButton from "@/components/common/ShareButton";
 
 function Reactions({blog}:{blog:BlogWithUser}) {
 
@@ -17,7 +18,7 @@ function Reactions({blog}:{blog:BlogWithUser}) {
   const router = useRouter();
   
   const userId = session.data?.user.id;
-  //console.log("BLOG CLSP",blog._count.claps)
+//console.log("BLOG CLSP",blog._count)
 
 const [ clapCount,setClapCount] = useState<number>(blog._count.claps);
 const [ userHasClapped,setUserHasClapped] = useState<boolean>(!!blog.claps.length);
@@ -34,7 +35,7 @@ const handleClap =async()=>{
 }
 const handleBookmark =async()=>{
   if(!userId){
-    alert("Please login to clap");
+    alert("Please login to Bookmarks");
     return;
   }
  // setClapCount((prevCount)=> userHasBookmarked ? prevCount - 1 : prevCount + 1);
@@ -53,14 +54,17 @@ const handleBookmark =async()=>{
         </span>
         <span className="mr-4 flex items-center gap-1 cursor-pointer">
           <FaRegComment size={18}/>
-          {3}
+          {blog._count.comments}
         </span>
       </div>
-      <div>
-        <span onClick={handleBookmark}>
+      <div className="flex items-center gap-2">
+        <span onClick={handleBookmark} className="mr-4 cursor-pointer">
           {userHasBookmarked ? <FaBookmark  size={18}/> : <FaRegBookmark  size={18}/>}
         </span>
-        {/* <FaRegBookmark size={18}/> */}
+        <span className="mr-4 cursor-pointer">
+
+        <ShareButton id={blog.id} title={blog.title} />
+        </span>
       </div>
     </div>
   )

@@ -1,0 +1,26 @@
+import { Comment, User } from '@prisma/client'
+import React from 'react'
+import CommentCard from './CommentCard';
+export type CommentWithUser= Comment & {
+   user: Pick<User, 'id' | 'name' | 'image'>;
+   repliedToUser:Pick<User, 'id' | 'name' > | null;
+    _count: {
+      replies: number;
+      claps: number;
+    };
+    claps: { id: string }[];
+
+}
+function ListComments({comments}:{comments:CommentWithUser[]}) {
+  return (
+    <div className="mt-4" id="comments">
+      {comments.map((c)=>{
+                 return <div key={c.id} id={c.id} >
+                 <CommentCard comment={c}/>
+                   </div>     
+      })}
+    </div>
+  )
+}
+
+export default ListComments

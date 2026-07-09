@@ -14,13 +14,21 @@ model User {
   password      String?
   emailVerified DateTime?
   image         String?
+  bio           String?
+  tags          String[]
   accounts      Account[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   role          UserRole  @default(USER)
   blogs         Blog[]
   claps         Clap[]
+  followers Follow[] @relation("UserAsFollowed") // those who follow this user
+  followings Follow[] @relation("UserAsFollower") // those followed by this user
   bookmarks     Bookmark[]
+  comments      Comment[]
+  commentClaps CommentClap[]
+   repliedToComments Comment[] @relation("ReplyToUser")
+   
 }
 
 model Account {
@@ -78,6 +86,7 @@ model Blog {
   tags        String[]
   claps       Clap[]
   bookmarks   Bookmark[]
+  comments    Comment[]
 
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -101,4 +110,42 @@ model Bookmark {
   blog Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
 
   @@unique([userId, blogId])
+}
+
+model Comment{
+id String @id @unique @default(cuid())
+blogId String
+userId String
+parentId String?
+ repliedToUserId String?
+  content String
+  createdAt DateTime @default(now())
+  blog Blog @relation(fields: [blogId], references: [id], onDelete: Cascade) //mera blog kis blog ki id me hai 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade) // user kis user ki id me hai
+  parent Comment? @relation("OneLevelThread", fields: [parentId], references: [id], onDelete: Cascade)
+  replies Comment[] @relation("OneLevelThread")
+  repliedToUser User? @relation("ReplyToUser", fields: [repliedToUserId], references: [id])
+claps CommentClap[]
+}
+
+model CommentClap {
+  id     String @id @default(cuid())
+  userId String
+  commentId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, commentId])
+}
+
+model Follow {
+  id String @id @default(cuid())
+  followerId String //user who follows
+  followingId String //user being followed
+  createAt DateTime @default(now())
+
+  follower User @relation("UserAsFollower", fields: [followerId], references: [id], onDelete: Cascade) // the one following
+  following User @relation("UserAsFollowed", fields: [followingId], references: [id], onDelete: Cascade) // the one followed
+
+  @@unique([followerId, followingId])
 }

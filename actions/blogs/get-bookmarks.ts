@@ -37,6 +37,7 @@ export const getBookmarks = async ({ page = 1, limit = 5 }: PaginationType) => {
             _count: {
               select: {
                 claps: true,
+                comments:true
               }
             },
             claps: {

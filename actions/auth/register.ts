@@ -6,7 +6,6 @@ import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
 import { getUserByEmail } from "@/lib/user";
 import { generateEmailVerificationToken, sendEmailVerificationToken } from "@/lib/emailVerification";
-import { error } from "console";
 
 
 export const signUp = async(values:RegisterSchemaType)=>{

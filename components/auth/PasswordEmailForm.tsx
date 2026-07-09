@@ -8,7 +8,7 @@ import Heading from "../common/Heading";
 import FormField from "../common/FormField";
 import Alert from "../common/Alert";
 import Button from "../common/Button";
-import SocialAuth from "./SocialAuth";
+
 import { passwordEmail } from "@/actions/auth/password-email";
 
 function PasswordEmailForm() {

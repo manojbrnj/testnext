@@ -1,7 +1,7 @@
 'use client';
 import { cn } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-import queryString from "query-string";
+import queryString, { StringifiableRecord } from "query-string";
 import React, { useCallback } from "react"
 
 interface TagProps{
@@ -23,9 +23,9 @@ else{
     currentQuery = queryString.parse(params.toString());
 
   }
-  const updatedQuery:any ={
+  const updatedQuery:StringifiableRecord | undefined ={
     ...currentQuery,
-    tag:children
+     tag: typeof children === "string" ? children : String(children),
   
   }
 

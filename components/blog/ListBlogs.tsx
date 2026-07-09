@@ -6,9 +6,12 @@ export type BlogWithUser = Blog & {
   user: Pick<User, 'id' | 'name' | 'image'>;
   _count: {
     claps: number;
+    comments: number;    
   };
   claps: { id: string }[];
   bookmarks: { id: string }[];
+  
+ 
 };
 
 interface ListBlogsProps {
@@ -34,7 +37,7 @@ function ListBlogs({
           return <BlogCard blog={blog} key={blog.id} isUserProfile={isUserProfile}></BlogCard>
         })}
       </section>
-<Pagination page={page} hasMore={hasMore} ></Pagination>
+<Pagination page={page} hasMore={hasMore} isUserProfile={isUserProfile} ></Pagination>
       
    
     </div>

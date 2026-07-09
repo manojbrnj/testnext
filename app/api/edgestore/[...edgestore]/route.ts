@@ -1,9 +1,4 @@
-import { initEdgeStore } from '@edgestore/server';
-import { createEdgeStoreNextHandler } from '@edgestore/server/adapters/next/app';
 import { handler } from '@/lib/edgestore-server';
-
-
-
 export { handler as GET, handler as POST };
 
 /**

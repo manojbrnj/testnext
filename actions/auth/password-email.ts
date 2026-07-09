@@ -4,7 +4,7 @@ import { generatePasswordResetToken, sendPasswordResetEmail } from '@/lib/passwo
 
 import { getUserByEmail } from "@/lib/user";
 import { PasswordEmailSchema, PasswordEmailSchemaType } from "@/schemas/PasswordEmailSchema"
-import { error } from "console";
+
 
 export const passwordEmail = async (values:PasswordEmailSchemaType)=>{
   const validatedFields = PasswordEmailSchema.safeParse(values)

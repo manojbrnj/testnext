@@ -1,16 +1,13 @@
 'use client'
 import {cn} from '@/lib/utils';
-import React, { use, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Container from './Container';
 import ThemeToggle from './ThemeToggle';
-import { MdNoteAlt } from 'react-icons/md';
-import { BiPulse } from 'react-icons/bi';
 import { PiPulseBold } from 'react-icons/pi';
 import Notifications from './Notifications';
 import UserButton from './UserButton';
 import SearchInput from './SearchInput';
 import Link from 'next/link';
-import RegisterButton from './RegisterButton';
 import { useSession } from 'next-auth/react';
 import { usePathname, useRouter } from 'next/navigation';
 import Tags from './Tags';

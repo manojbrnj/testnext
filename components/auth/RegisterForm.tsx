@@ -1,5 +1,4 @@
 'use client';
-import {loginSchemaType, LoginSchema} from '@/schemas/LoginSchema';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import FormField from '../common/FormField';

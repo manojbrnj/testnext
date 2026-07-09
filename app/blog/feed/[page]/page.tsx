@@ -1,7 +1,8 @@
 import { getPublishedBlogs } from "@/actions/blogs/get-published-blog";
 import ListBlogs from "@/components/blog/ListBlogs";
 import Alert from "@/components/common/Alert";
-import { get } from "http";
+
+
  interface BlogFeedProps{
   params:Promise<{page:number}>,
   searchParams:Promise<{
@@ -18,7 +19,7 @@ if(error){
 }
 if(!success) return <Alert message="No Posts!"></Alert>
 const {blogs,hasMore } = success;
- //console.log("CURRENT PAGE>>>>",success.totalBlogCount)
+ //console.log("CURRENT PAGE>>>>",blogs)
   return (
     <div><ListBlogs blogs={blogs} hasMore={hasMore} totalBlogCount={success.totalBlogCount} page={page}/></div>
   )

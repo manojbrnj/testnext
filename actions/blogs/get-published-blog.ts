@@ -48,6 +48,8 @@ export const getPublishedBlogs= async({page=1,limit=5,searchObject}:PaginationTy
         _count: {
           select: {
             claps: true,
+            comments: true,
+            
           }
         },
         claps:{

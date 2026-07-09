@@ -13,6 +13,7 @@ import './editor.css'
 import { getBlogById } from "@/actions/blogs/get-blogById";
 import UserSummery from "@/components/blog/UserSummery";
 import BlockNoteEditor from "@/components/blog/editor/BlogNoteEditor";
+import Comments from "@/components/comments/Comments";
 //import Comments from "@/components/comments/Comments";
 
 interface BlogContentProps {
@@ -54,6 +55,7 @@ const BlogContent = async ({ params }: BlogContentProps) => {
         </div>
         <Separator />
         {/* <Comments blog={blog} /> */}
+        <Comments blog={blog} />
     </div>);
 }
 
