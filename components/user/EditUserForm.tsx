@@ -133,8 +133,9 @@ function EditUserForm({
             type='file'
             accept='image/*'
             onChange={handleFileChange}
+            disabled={uploading}
             />
-           
+            {uploading && <p className='text-sm text-slate-500'>Uploading...</p>}
           </div>
         </div>
 
