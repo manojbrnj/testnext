@@ -10,8 +10,8 @@ import { useRouter } from 'next/navigation'
 function UserButton() {
   const session = useSession();
   const imageurl = session.data?.user.image;
+  const isAdmin = (session.data?.user.role) === 'ADMIN';
   const router = useRouter();
-  //console.log('avatar url:', imageurl, 'session:', session.data)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -45,11 +45,11 @@ function UserButton() {
           </button>
         </DropdownMenuItem>
         <DropdownMenuSeparator/>
-        <DropdownMenuItem>
-          <button className='flex items-center gap-2'>
+        {isAdmin && <DropdownMenuItem>
+          <button onClick={()=>{router.push('/admin')}} className='flex items-center gap-2'>
             <Shield size={18}></Shield> Admin
           </button>
-        </DropdownMenuItem>
+        </DropdownMenuItem>}
         <DropdownMenuSeparator/>
         <DropdownMenuItem>
           <button className='flex items-center gap-2' onClick={()=>signOut()}>
