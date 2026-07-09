@@ -7,6 +7,7 @@ import UserSummery from './UserSummery';
 import Tag from '../common/Tag';
 import Reactions from './Reactions';
 import { auth } from '@/auth';
+import { buildBlogDetailsUrl } from '@/lib/utils';
 
 async function BlogCard({
   blog,
@@ -22,7 +23,7 @@ const session = await auth();
 const userId = session?.user?.id;
 const isOwner = userId === blog.userId;
 const isAdmin = session?.user?.role === 'ADMIN';
-
+const detailHref = buildBlogDetailsUrl(blog.id, blog.title);
 
   return (
     <div className='border-b border-slate-300 dark:border-slate-700 py-6 cursor-pointer '>
@@ -40,7 +41,7 @@ const isAdmin = session?.user?.role === 'ADMIN';
       <div className='my-2 flex justify-between gap-6'>
         <div className='flex flex-col justify-between w-full'>
           <Link
-            href={`/blog/details/${blog.id}`}
+            href={detailHref}
             className='text-xl sm:text-2xl font-bold'
           >
             {blog.title}
@@ -61,7 +62,7 @@ const isAdmin = session?.user?.role === 'ADMIN';
         </div>
         {!!blog.coverImage && (
           <Link
-            href={`/blog/details/${blog.id}`}
+            href={detailHref}
             className='w-full max-w-[160px] h-[100px] relative overflow-hidden'
           >
             <Image
@@ -70,6 +71,8 @@ const isAdmin = session?.user?.role === 'ADMIN';
               fill
               alt={blog.title}
               className='object-cover rounded-md'
+             
+             
             />
           </Link>
         )}

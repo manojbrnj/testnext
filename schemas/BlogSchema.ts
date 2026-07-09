@@ -8,6 +8,9 @@ export const BlogSchema = z.object({
   coverImage:z.string().optional(),
   isPublished:z.boolean().optional(),
   tags:z.string().array().optional(),
+  createdAt:z.date().optional(),
+  updatedAt:z.date().optional(),
+  slug:z.string().optional(),
 
 
 })

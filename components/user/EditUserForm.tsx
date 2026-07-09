@@ -17,7 +17,10 @@ import {editUser} from '@/actions/users/edit-user';
 import {tags} from '@/lib/tags';
 import { deleteUser } from '@/actions/users/delete-user';
 import { signOut } from 'next-auth/react';
-
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { UserRound } from 'lucide-react';
+import { useEdgeStore } from "@/lib/edgestore";
+import { uploadAvatar } from '@/actions/users/upload-avatar';
 function EditUserForm({
   user,
   isCredentials,
@@ -27,7 +30,8 @@ function EditUserForm({
 }) {
   const [isPending, startTransition] = useTransition();
   const [isDeleting, startDeleting] = useTransition();
-
+  const { edgestore } = useEdgeStore();
+  const [uploading, setUploading] = useState(false);
   const [success, setSuccess] = useState<string | undefined>('');
   const [error, setError] = useState<string | undefined>('');
   const [deleteSuccess, setDeleteSuccess] = useState<string | undefined>('');
@@ -79,13 +83,62 @@ function EditUserForm({
     });
   };
 
+ const handleFileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+
+    try {
+      setUploading(true);
+
+      const res = await edgestore.publicFiles.upload({
+        file,
+      });
+
+    
+        const imageuploaded = await uploadAvatar(res.url);
+        if (imageuploaded.error) {
+          setError(imageuploaded.error);
+        }
+      // yaha server action ya api call karke
+      // res.url postgres me save kar sakte ho
+
+    } catch (error) {
+      console.error("Upload failed:", error);
+    } finally {
+      setUploading(false);
+    }
+  };
+
   return (
     <>
+
     <form
       onSubmit={handleSubmit(onSubmit)}
       className='flex flex-col gap-4 mt-8 m-auto max-w-[500px]'
     >
       <Heading title='Update Profile' lg center></Heading>
+<div className='flex flex-col gap-4'>
+     <div className='flex items-start sm:items-center gap-6 flex-col sm:flex-row'>
+          <Avatar className='w-20 h-20  '>
+            <AvatarImage src={user?.image ? user?.image : ''} />
+            <AvatarFallback className='border-2 border-slate-500 dark:border-slate-50'>
+              <UserRound />
+            </AvatarFallback>
+          </Avatar>
+          <div className='flex flex-col gap-2'>
+          <input
+            type='file'
+            accept='image/*'
+            onChange={handleFileChange}
+            />
+           
+          </div>
+        </div>
+
+</div>
       <FormField
         id='name'
         register={register}

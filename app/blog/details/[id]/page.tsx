@@ -1,5 +1,6 @@
 
 import { auth } from "@/auth";
+import type { Metadata } from "next";
 
 import Reactions from "@/components/blog/Reactions";
 
@@ -14,26 +15,115 @@ import { getBlogById } from "@/actions/blogs/get-blogById";
 import UserSummery from "@/components/blog/UserSummery";
 import BlockNoteEditor from "@/components/blog/editor/BlogNoteEditor";
 import Comments from "@/components/comments/Comments";
+import { buildBlogDetailsUrl, getBlogIdCandidates } from "@/lib/utils";
 //import Comments from "@/components/comments/Comments";
 
 interface BlogContentProps {
     params: Promise<{ id: string }>
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+    const { id } = await params
+    const blogIdCandidates = getBlogIdCandidates(id)
+
+    let res: Awaited<ReturnType<typeof getBlogById>> | undefined
+
+    for (const blogId of blogIdCandidates) {
+        res = await getBlogById({ blogId })
+        if (res.success && res.success.blog) break
+    }
+
+    if (res?.success && res.success.blog) {
+        const blog = res.success.blog
+        const description = blog.content
+            ? blog.content.replace(/<[^>]*>/g, "").slice(0, 160)
+            : `Read ${blog.title} on the blog.`
+
+        return {
+            title: blog.title,
+            description,
+            openGraph: {
+                title: blog.title,
+                description,
+                type: "article",
+                images: blog.coverImage ? [blog.coverImage] : [],
+            },
+        }
+    }
+
+    return {
+        title: "Blog",
+        description: "Read this blog post.",
+    }
+}
+
 const BlogContent = async ({ params }: BlogContentProps) => {
     const session = await auth()
 
     const { id } = await params
+    const blogIdCandidates = getBlogIdCandidates(id)
 
-    const res = await getBlogById({ blogId: id })
+    let res: Awaited<ReturnType<typeof getBlogById>> | undefined
 
-    if (!res.success) return <Alert error message="Error fetching blog content" />
+    for (const blogId of blogIdCandidates) {
+        res = await getBlogById({ blogId })
+        if (res.success && res.success.blog) break
+    }
+
+    if (!res?.success) return <Alert error message="Error fetching blog content" />
 
     const blog = res.success.blog
 
     if (!blog) return <Alert error message="No blog found!" />
 
+    const blogUrl = `https://example.com${buildBlogDetailsUrl(blog.id, blog.title)}`
+
+    const jsonLd = [
+        {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: blog.title,
+            description: blog.content.replace(/<[^>]*>/g, "").slice(0, 160),
+            image: blog.coverImage ? [blog.coverImage] : [],
+            datePublished: blog.createdAt.toISOString(),
+            dateModified: blog.createdAt.toISOString(),
+            author: {
+                "@type": "Person",
+                name: blog.user?.name || "Unknown author",
+            },
+            url: blogUrl,
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+                {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://example.com",
+                },
+                {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Blog",
+                    item: "https://example.com/blog/feed",
+                },
+                {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: blog.title,
+                    item: blogUrl,
+                },
+            ],
+        },
+    ]
+
     return (<div className="flex flex-col max-w-[900px] m-auto gap-6">
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {blog.coverImage && <div className="relative w-full h-[35vh] mt-2">
             <Image src={blog.coverImage} fill alt="Cover Image" className="object-cover rounded" />
         </div>}

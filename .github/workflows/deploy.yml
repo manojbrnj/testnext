@@ -20,8 +20,8 @@ jobs:
           debug: true
           script: |
             cd /var/www/voiceofamuse.com
-            git fetch origin
-            git reset --hard origin/temp
-            npm install
-            npm run build
+            git fetch origin &&
+            git reset --hard origin/temp && 
+            npm install && 
+            npm run build &&
             pm2 restart all

@@ -6,6 +6,7 @@ import {
   WhatsappIcon,
   EmailIcon,
 } from "react-share";
+import { buildBlogDetailsUrl } from "@/lib/utils";
 
 export default function ShareButtons({
   id,
@@ -15,7 +16,7 @@ export default function ShareButtons({
   title: string;
 }) {
     if(typeof window === "undefined") return null;
-  const url = `${window.location.origin}/blog/details/${id}`;
+  const url = `${window.location.origin}${buildBlogDetailsUrl(id, title)}`;
 
   return (
     <div className="flex gap-2">
