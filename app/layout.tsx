@@ -29,7 +29,9 @@ export const metadata: Metadata = {
   description:
     "Explore Hindi and English poetry, shayari, motivational poems, love poems, life lessons, and creative writing at Voice Of A Muse.",
     icons: {
-    icon: '/logo.svg'
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
   keywords: [
     "poetry blog",
