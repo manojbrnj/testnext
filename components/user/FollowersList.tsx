@@ -19,7 +19,7 @@ function FollowersList({user}:{user:UserWithFollowers}) {
       
     </DialogDescription>
     <DialogHeader>
-      <DialogTitle>Follwers</DialogTitle>
+      <DialogTitle>Followers</DialogTitle>
       
     </DialogHeader>
 <div>

@@ -44,7 +44,22 @@ export const metadata: Metadata = {
     "creative writing",
     "life poetry",
     "voice of a muse",
-    "voiceofamuse"
+    "voiceofamuse",
+    "best poems",
+    "poetry website",
+    "poetry articles",
+    "best poetry blog",
+    "top poetry blog",
+    "poetry content",
+    "indian poetry",
+    "poetry platform",
+    "poetry community",
+    "indian shayari",
+    "indian poetry blog",
+    "poetry and shayari",
+    "indian poetry website",
+    "poetry and literature",
+    "indian poetry articles",
   ],
 };
 
