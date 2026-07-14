@@ -24,14 +24,28 @@ const poppins = Poppins({
 
 
 export const metadataBase = new URL("https://voiceofamuse.com");
-
 export const metadata: Metadata = {
-  title: "Voam",
-  description: "Voam is a platform for sharing knowledge and ideas.",
-  icons: {
+  title: "Voice of Amuse - Poetry Blog",
+  description:
+    "Explore Hindi and English poetry, shayari, motivational poems, love poems, life lessons, and creative writing at Voice of Amuse.",
+    icons: {
     icon: '/logo.svg'
-  }
+  },
+  keywords: [
+    "poetry blog",
+    "hindi poetry",
+    "english poetry",
+    "shayari",
+    "love poems",
+    "motivational poems",
+    "poems",
+    "creative writing",
+    "life poetry",
+    "voice of amuse"
+  ],
 };
+
+
 
 export default async function RootLayout({
   children,

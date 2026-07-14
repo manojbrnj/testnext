@@ -69,9 +69,9 @@ async function UserProfile({user, page,isFollowing}: {user: UserWithFollowers; p
       </div>
       <div className='flex gap-4 flex-col items-center justify-center p-6 border-y mt-6 flex-wrap'>
         <div className='flex gap-6 items-center justify-center flex-wrap' >
-           <span >
+           {/* <span >
             Id: <span className='bg-secondary ml-2 py-1 px-2 rounded text-sm tracking-widest'>{user?.id}</span> 
-           </span>
+           </span> */}
            <span >
             Email: <span className='bg-secondary ml-2 py-1 px-2 rounded text-sm tracking-widest'>{user?.email}</span> 
            </span>
