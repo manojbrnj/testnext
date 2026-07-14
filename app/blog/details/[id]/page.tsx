@@ -89,7 +89,7 @@ const BlogContent = async ({ params }: BlogContentProps) => {
 
     if (!blog) return <Alert error message="No blog found!" />
 
-    const blogUrl = `https://example.com${buildBlogDetailsUrl(blog.id, blog.title)}`
+    const blogUrl = `https://voiceofamuse.com${buildBlogDetailsUrl(blog.id, blog.title)}`
 
     const jsonLd = [
         {
@@ -114,13 +114,13 @@ const BlogContent = async ({ params }: BlogContentProps) => {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://example.com",
+                    item: "https://voiceofamuse.com",
                 },
                 {
                     "@type": "ListItem",
                     position: 2,
                     name: "Blog",
-                    item: "https://example.com/blog/feed",
+                    item: "https://voiceofamuse.com/blog/feed",
                 },
                 {
                     "@type": "ListItem",
