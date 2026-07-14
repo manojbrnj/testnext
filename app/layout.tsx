@@ -25,9 +25,9 @@ const poppins = Poppins({
 
 export const metadataBase = new URL("https://voiceofamuse.com");
 export const metadata: Metadata = {
-  title: "Voice of Amuse - Poetry Blog",
+  title: "Voice Of A Muse - Poetry Blog",
   description:
-    "Explore Hindi and English poetry, shayari, motivational poems, love poems, life lessons, and creative writing at Voice of Amuse.",
+    "Explore Hindi and English poetry, shayari, motivational poems, love poems, life lessons, and creative writing at Voice Of A Muse.",
     icons: {
     icon: '/logo.svg'
   },
@@ -41,7 +41,8 @@ export const metadata: Metadata = {
     "poems",
     "creative writing",
     "life poetry",
-    "voice of amuse"
+    "voice of a muse",
+    "voiceofamuse"
   ],
 };
 
@@ -77,7 +78,7 @@ export default async function RootLayout({
                 </Suspense>
               </main>
               <footer>
-                <div className="py-6 text-center text-sm text-muted-foreground">© {new Date().getFullYear()} Voam</div>
+                <div className="py-6 text-center text-sm text-muted-foreground">© {new Date().getFullYear()} Voice Of A Muse</div>
               </footer>
             </ThemeProvider>
           </body>
