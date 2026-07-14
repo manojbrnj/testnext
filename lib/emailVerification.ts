@@ -49,9 +49,9 @@ const resend = new Resend();
 const emailVerificationLink = `${process.env.BASE_URL}/email-verification?token=${token}`
  console.log(emailVerificationLink)
 const res =await resend.emails.send({
-  from:"voiceofamuse.com<manojbrnj111@voiceofamuse.com>",
+  from:"voiceofamuse.com<no-reply@voiceofamuse.com>",
   to:email,
-  subject:"Welcome to Voice of Amuse! Please verify your email 🎉",
+  subject:"Welcome to Voice Of A Muse! Please verify your email 🎉",
   html:`<p>Click 👉 <a href="${emailVerificationLink}">here</a> to verify your email 🎉🎉🎉🎉🎉.</p>`
 })
 console.log(res.error)

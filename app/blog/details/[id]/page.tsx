@@ -18,6 +18,12 @@ import Comments from "@/components/comments/Comments";
 import { buildBlogDetailsUrl, getBlogIdCandidates } from "@/lib/utils";
 //import Comments from "@/components/comments/Comments";
 
+const siteUrl = "https://voiceofamuse.com";
+
+function resolveAbsoluteUrl(url: string) {
+  return url.startsWith("http") ? url : `${siteUrl}${url}`;
+}
+
 interface BlogContentProps {
     params: Promise<{ id: string }>
 }
@@ -39,6 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
             ? blog.content.replace(/<[^>]*>/g, "").slice(0, 160)
             : `Read ${blog.title} on the blog.`
 
+        const imageUrl = blog.coverImage ? resolveAbsoluteUrl(blog.coverImage) : undefined
         return {
             title: blog.title,
             description,
@@ -46,7 +53,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
                 title: blog.title,
                 description,
                 type: "article",
-                images: blog.coverImage ? [blog.coverImage] : [],
+                images: imageUrl ? [{ url: imageUrl, alt: blog.title }] : [],
+            },
+            twitter: {
+                card: "summary_large_image",
+                title: blog.title,
+                description,
+                images: imageUrl ? [imageUrl] : [],
             },
         }
     }

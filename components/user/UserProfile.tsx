@@ -2,8 +2,8 @@
 import {User} from '@prisma/client';
 import React from 'react';
 import {Avatar, AvatarFallback, AvatarImage} from '../ui/avatar';
-import {Calendar, UserRound} from 'lucide-react';
-import moment from 'moment';
+import { UserRound} from 'lucide-react'; 
+// import moment from 'moment';
 import { getBlogsByUserId } from '@/actions/blogs/get-blogsBytUserId';
 import Alert from '../common/Alert';
 import ListBlogs from '../blog/ListBlogs';
@@ -77,9 +77,9 @@ async function UserProfile({user, page,isFollowing}: {user: UserWithFollowers; p
            </span>
           
         </div>
-        <div className='flex justify-center items-center gap-2'>
+        {/* <div className='flex justify-center items-center gap-2'>
           <Calendar  size={18} /> Member Since {moment(user?.createdAt).format('DD MM YYYY')}
-        </div>
+        </div> */}
       </div>
         <div>
           {!!user.tags.length && <div className='flex items-center justify-center p-6 border-b mb-6 gap-4 flex-wrap'>

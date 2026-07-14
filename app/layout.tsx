@@ -23,6 +23,8 @@ const poppins = Poppins({
 
 
 
+export const metadataBase = new URL("https://voiceofamuse.com");
+
 export const metadata: Metadata = {
   title: "Voam",
   description: "Voam is a platform for sharing knowledge and ideas.",
